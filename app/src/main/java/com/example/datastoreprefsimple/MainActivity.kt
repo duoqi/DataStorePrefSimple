@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.createDataStore
 import com.example.datastoreprefsimple.databinding.ActivityMainBinding
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.collect
@@ -30,6 +29,13 @@ class MainActivity : AppCompatActivity() {
         mBinding.textView1.setOnClickListener {
             mainScope.launch {
                 UserDataStore.readStringData(stringPreferencesKey(DataStoreKey.userTest)).collect { Log.e("avv", it) }
+            }
+
+        }
+
+        mBinding.clear.setOnClickListener {
+            mainScope.launch {
+                UserDataStore.clearAllData()
             }
 
         }
