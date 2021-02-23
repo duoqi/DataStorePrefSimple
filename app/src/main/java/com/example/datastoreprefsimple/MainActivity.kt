@@ -10,30 +10,26 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private val mainScope = MainScope()
 
-    private lateinit var mBinding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = ActivityMainBinding.inflate(LayoutInflater.from(this))
-        setContentView(mBinding.root)
-        mBinding.textView2.setOnClickListener {
+        mViewBinding.textView2.setOnClickListener {
             mainScope.launch {
                 UserDataStore.saveStringData(stringPreferencesKey(DataStoreKey.userTest), "abcde")
             }
         }
 
-        mBinding.textView1.setOnClickListener {
+        mViewBinding.textView1.setOnClickListener {
             mainScope.launch {
                 UserDataStore.readStringData(stringPreferencesKey(DataStoreKey.userTest)).collect { Log.e("avv", it) }
             }
 
         }
 
-        mBinding.clear.setOnClickListener {
+        mViewBinding.clear.setOnClickListener {
             mainScope.launch {
                 UserDataStore.clearAllData()
             }
